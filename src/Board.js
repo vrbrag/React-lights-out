@@ -26,7 +26,7 @@ import "./Board.css";
  *  This doesn't handle any clicks --- clicks are on individual cells
  *
  **/
-// chanceLightStartsOn
+// chanceLightStartsOn - determines if initial board cells are TRUE or FALSE
 function Board({ nrows = 3, ncols = 3, chanceLightStartsOn = 0.5 }) {
   const [board, setBoard] = useState(createBoard());
 
@@ -37,6 +37,8 @@ function Board({ nrows = 3, ncols = 3, chanceLightStartsOn = 0.5 }) {
     for (let row = 0; row < nrows; row++) {
       let row = []
       for (let col = 0; col < ncols; col++) {
+        //*****TRUE or FALSE: */
+        //**** is the random number less than 'chanceLightStartsOn'? */
         row.push(Math.random() < chanceLightStartsOn)
       }
       initialBoard.push(row)
@@ -47,8 +49,8 @@ function Board({ nrows = 3, ncols = 3, chanceLightStartsOn = 0.5 }) {
 
   function hasWon() {
     // TODO: check the board in state to determine whether the player has won.
-    // win if every cell is false
-    return board.every(cell => !cell)
+    // Win if every cell is false
+    return board.every(row => row.every(cell => !cell))
   }
 
   if (hasWon()) {
@@ -77,7 +79,7 @@ function Board({ nrows = 3, ncols = 3, chanceLightStartsOn = 0.5 }) {
       };
 
       // TODO: Make a (deep) copy of the oldBoard
-      // take oldBoard and make a copy of it
+      // take oldBoard and make a copy of it (map)
       const boardCopy = oldBoard.map(row => [...row])
       console.log(x)
       console.log(y)
@@ -119,9 +121,11 @@ function Board({ nrows = 3, ncols = 3, chanceLightStartsOn = 0.5 }) {
 
   // TODO
   return (
-    <tbody>
-      {tableBoard}
-    </tbody>
+    <table>
+      <tbody>
+        {tableBoard}
+      </tbody>
+    </table>
   )
 }
 
