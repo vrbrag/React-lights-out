@@ -27,7 +27,7 @@ import "./Board.css";
  *
  **/
 // chanceLightStartsOn - determines if initial board cells are TRUE or FALSE
-function Board({ nrows = 3, ncols = 3, chanceLightStartsOn = 0.5 }) {
+function Board({ nrows = 3, ncols = 3, chanceLightStartsOn = 0.1 }) {
   const [board, setBoard] = useState(createBoard());
 
   /** create a board nrows high/ncols wide, each cell randomly lit or unlit */
@@ -56,7 +56,7 @@ function Board({ nrows = 3, ncols = 3, chanceLightStartsOn = 0.5 }) {
   if (hasWon()) {
     return (
       <div>
-        `You won!`
+        You won! 🥳
       </div>
     )
   }
@@ -112,6 +112,7 @@ function Board({ nrows = 3, ncols = 3, chanceLightStartsOn = 0.5 }) {
         <Cell
           key={coord}
           flipCellsAroundMe={() => flipCellsAround(coord)}
+          isLit={board[y][x]}
         />
       )
     }
@@ -121,11 +122,14 @@ function Board({ nrows = 3, ncols = 3, chanceLightStartsOn = 0.5 }) {
 
   // TODO
   return (
-    <table>
-      <tbody>
-        {tableBoard}
-      </tbody>
-    </table>
+    <>
+      <small>Click cells until entire board is black.</small>
+      <table className="Board">
+        <tbody>
+          {tableBoard}
+        </tbody>
+      </table>
+    </>
   )
 }
 
